@@ -28,7 +28,7 @@ export default function Home() {
     const res = await fetch(`/api/check-slug?slug=${form.slug}`);
     const data = await res.json();
     if (!data.available) {
-      setError('Yeh username already le liya gaya hai — koi aur try karo.');
+      setError('This username is already taken — try another one.');
     } else {
       setError('');
     }
@@ -56,7 +56,7 @@ export default function Home() {
         setGeneratedSlug(form.slug);
         setStep(3);
       } else {
-        setError(data.error || 'Kuch masla ho gaya — dobara try karo.');
+        setError(data.error || 'There is some problem. Try again.');
       }
     } catch {
       setError('Server error — dobara try karo.');
@@ -76,21 +76,21 @@ export default function Home() {
           <div className="hero fade-in">
             <div className="badge">Beta</div>
             <h1>Persona</h1>
-            <p className="sub">Apna AI chatbot banao — Instagram bio ke liye.<br />Log tumse baat karein, tum kahin bhi raho.</p>
+            <p className="sub">Create your AI chatbot — made for your Instagram bio.<br />Let people talk to you, wherever you are.</p>
             <button className="btn-primary" onClick={() => setStep(2)}>
               Shuru karo
             </button>
-            <p className="note">Free hai. Koi account nahi chahiye.</p>
+            <p className="note">Free. No account needed.</p>
           </div>
         )}
 
         {step === 2 && (
           <div className="form-wrap fade-in">
-            <h2>Apna Persona banao</h2>
-            <p className="form-sub">Jitna sach likho utna better AI hoga.</p>
+            <h2>Create your Persona</h2>
+            <p className="form-sub">The more honest you are, the better your AI will be.</p>
 
             <div className="field">
-              <label>Tumhara naam *</label>
+              <label>Your name *</label>
               <input
                 type="text"
                 placeholder="Ali, Sara, Zayan..."
@@ -100,7 +100,7 @@ export default function Home() {
             </div>
 
             <div className="field">
-              <label>Username (link mein yahi aayega) *</label>
+              <label>Username (this will appear in your link) *</label>
               <div className="slug-wrap">
                 <span className="slug-prefix">persona.bio/</span>
                 <input
@@ -115,7 +115,7 @@ export default function Home() {
             </div>
 
             <div className="field">
-              <label>Tone kaisa ho? *</label>
+              <label>What's your tone?*</label>
               <div className="chips">
                 {['Chill & witty', 'Serious & deep', 'Friendly & warm', 'Mysterious', 'Playful'].map(t => (
                   <button
@@ -145,9 +145,9 @@ export default function Home() {
             </div>
 
             <div className="field">
-              <label>Tum kaun ho? (background)</label>
+              <label>Who are you? (background)</label>
               <textarea
-                placeholder="CS student hoon, startup chal raha hai, writer hoon... jo bhi sach ho"
+                placeholder="CS student, running a startup, designer... whatever is true"
                 value={form.background}
                 onChange={e => update('background', e.target.value)}
                 rows={3}
@@ -165,9 +165,9 @@ export default function Home() {
             </div>
 
             <div className="field">
-              <label>Tumhara koi strong view ya philosophy</label>
+              <label>Your strong view or philosophy</label>
               <textarea
-                placeholder="Love ke baare mein, life ke baare mein, kuch bhi..."
+                placeholder="About love, life, or anything ; what's your perspective?"
                 value={form.views}
                 onChange={e => update('views', e.target.value)}
                 rows={2}
@@ -175,9 +175,9 @@ export default function Home() {
             </div>
 
             <div className="field">
-              <label>Kuch aur add karna hai?</label>
+              <label>Want to add anything else?</label>
               <textarea
-                placeholder="Koi cheez jo AI ko pata honi chahiye tumhare baare mein..."
+                placeholder="Anything else the AI should know about you..."
                 value={form.extra}
                 onChange={e => update('extra', e.target.value)}
                 rows={2}
@@ -199,8 +199,8 @@ export default function Home() {
         {step === 3 && (
           <div className="success fade-in">
             <div className="tick">✓</div>
-            <h2>Tayar hai!</h2>
-            <p>Tumhara chatbot live hai — yeh link Instagram bio mein lagao:</p>
+            <h2>It's ready!</h2>
+            <p>Your chatbot is live; add this link to your Instagram bio:</p>
 
             <div className="link-box">
               <span>{typeof window !== 'undefined' ? window.location.origin : ''}/chat/{generatedSlug}</span>
@@ -216,7 +216,7 @@ export default function Home() {
               Preview karo
             </button>
 
-            <p className="note">Followers is link pe click karke tumse baat kar sakenge.</p>
+            <p className="note">Your followers can chat with you directly through this link.</p>
           </div>
         )}
 
