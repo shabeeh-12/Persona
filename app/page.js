@@ -36,7 +36,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     if (!form.name || !form.slug || !form.tone) {
-      setError('Naam, username, aur tone zaroori hain.');
+      setError('Name, Username and tone is mandatory.');
       return;
     }
 
@@ -59,7 +59,7 @@ export default function Home() {
         setError(data.error || 'There is some problem. Try again.');
       }
     } catch {
-      setError('Server error — dobara try karo.');
+      setError('Server error — Try Again');
     } finally {
       setLoading(false);
     }
@@ -76,10 +76,9 @@ export default function Home() {
           <div className="hero fade-in">
             <div className="badge">Beta</div>
             <h1>Persona</h1>
-            <p className="sub">Create your AI chatbot — made for your Instagram bio.<br />Let people talk to you, wherever you are.</p>
+            <p className="sub">Create your AI chatbot ; made for your Instagram bio.<br />Let people talk to you, wherever you are.</p>
             <button className="btn-primary" onClick={() => setStep(2)}>
-              Shuru karo
-            </button>
+             Start            </button>
             <p className="note">Free. No account needed.</p>
           </div>
         )}
@@ -189,7 +188,7 @@ export default function Home() {
               onClick={handleSubmit}
               disabled={loading}
             >
-              {loading ? 'Ban raha hai...' : 'Chatbot banao'}
+              {loading ? 'Being made...' : 'Make ChatBot'}
             </button>
 
             {error && !form.slug && <p className="field-error" style={{marginTop: '12px'}}>{error}</p>}
@@ -213,7 +212,7 @@ export default function Home() {
               className="btn-secondary"
               onClick={() => router.push(`/chat/${generatedSlug}`)}
             >
-              Preview karo
+              Preview 
             </button>
 
             <p className="note">Your followers can chat with you directly through this link.</p>
