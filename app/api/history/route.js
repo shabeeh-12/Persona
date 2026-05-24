@@ -9,16 +9,19 @@ export async function GET(request) {
   try {
     const { searchParams } = request.nextUrl;
     const session_id = searchParams.get('session_id');
+    const slug = searchParams.get('slug'); // 🌟 Frontend se slug accept karein
 
-    if (!session_id) {
+    if (!session_id || !slug) {
       return Response.json({ messages: [] });
     }
 
+    // 🌟 FIXED: Ab query session_id aur slug DONO check karegi
     const { data, error } = await supabase
       .from('messages')
       .select('role, content')
-      .order('created_at', { ascending: true })
-      .eq('session_id', session_id);
+      .eq('session_id', session_id)
+      .eq('slug', slug)
+      .order('created_at', { ascending: true });
 
     if (error) throw error;
 

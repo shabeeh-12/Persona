@@ -9,6 +9,10 @@ export async function POST(req) {
   try {
     const { slug, messages, session_id, user_message } = await req.json();
 
+    if (!slug) {
+      return Response.json({ reply: 'Slug provide nahi kiya gaya.' }, { status: 400 });
+    }
+
     // Bot ka system prompt fetch karo
     const { data: bot } = await supabase
       .from('bots')
@@ -44,11 +48,11 @@ export async function POST(req) {
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content || 'Kuch samajh nahi aaya.';
 
-    // Messages save karo
+    // 🌟 FIXED: Ab message save karte waqt 'slug' bhi save hoga
     if (session_id) {
       await supabase.from('messages').insert([
-        { session_id, role: 'user', content: user_message },
-        { session_id, role: 'assistant', content: reply },
+        { session_id, slug, role: 'user', content: user_message },
+        { session_id, slug, role: 'assistant', content: reply },
       ]);
     }
 
